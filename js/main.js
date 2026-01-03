@@ -1,193 +1,237 @@
-// =====================================================
-// INITIALISATION GLOBALE
-// =====================================================
+// ===================================
+// MAIN.JS - Site Artiserv Débouchage
+// ===================================
 
 document.addEventListener('DOMContentLoaded', function() {
     
-    // ===== TOP BAR - AFFICHAGE TEMPS RÉEL =====
-    function updateNextSlot() {
-        const now = new Date();
-        const minutesToAdd = Math.floor(Math.random() * 61) + 60;
-        now.setMinutes(now.getMinutes() + minutesToAdd);
-        const minutes = now.getMinutes();
-        const roundedMinutes = Math.ceil(minutes / 15) * 15;
-        now.setMinutes(roundedMinutes);
-        now.setSeconds(0);
-        
-        const hours = now.getHours();
-        const mins = now.getMinutes().toString().padStart(2, '0');
-        const currentHour = new Date().getHours();
-        let dayText = 'Aujourd\'hui';
-        
-        if (hours < currentHour || (hours === currentHour && now.getMinutes() <= new Date().getMinutes())) {
-            dayText = 'Demain';
-        }
-        
-        const nextSlotElement = document.getElementById('next-slot');
-        if (nextSlotElement) {
-            nextSlotElement.textContent = dayText + ' dès ' + hours + 'h' + mins;
-        }
-    }
-    
-    function updateTechnicianActivity() {
-        const activities = [
-            'Technicien en route sur Tours Nord',
-            'Intervention en cours à Saint-Cyr-sur-Loire',
-            'Équipe disponible pour urgence immédiate',
-            'Technicien en route sur Joué-lès-Tours',
-            'Intervention terminée - Prochaine dispo immédiate',
-            'Camion hydrocurage disponible secteur Tours'
-        ];
-        
-        const activityElement = document.getElementById('technician-activity');
-        if (activityElement) {
-            let newActivity;
-            do {
-                newActivity = activities[Math.floor(Math.random() * activities.length)];
-            } while (newActivity === activityElement.textContent && activities.length > 1);
-            
-            activityElement.textContent = newActivity;
-        }
-    }
-    
-    updateNextSlot();
-    updateTechnicianActivity();
-    setInterval(updateNextSlot, 5 * 60 * 1000);
-    setInterval(updateTechnicianActivity, 12000);
-    
-    
-    // ===== MENU HAMBURGER =====
+    // ===================================
+    // 1. MENU MOBILE
+    // ===================================
     const menuToggle = document.getElementById('menuToggle');
     const menuOverlay = document.getElementById('menuOverlay');
     const menuClose = document.getElementById('menuClose');
-    const menuLinks = document.querySelectorAll('.menu-link');
-    
+
     if (menuToggle && menuOverlay) {
-        menuToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            menuOverlay.classList.toggle('active');
-            menuToggle.classList.toggle('active');
-            document.body.style.overflow = menuOverlay.classList.contains('active') ? 'hidden' : '';
+        menuToggle.addEventListener('click', function() {
+            menuOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
         });
-    }
-    
-    if (menuClose) {
-        menuClose.addEventListener('click', function() {
-            menuOverlay.classList.remove('active');
-            menuToggle.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-    }
-    
-    // Ferme le menu au clic sur un lien
-    menuLinks.forEach(function(link) {
-        link.addEventListener('click', function() {
-            menuOverlay.classList.remove('active');
-            menuToggle.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-    });
-    
-    // Ferme le menu avec Escape
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && menuOverlay.classList.contains('active')) {
-            menuOverlay.classList.remove('active');
-            menuToggle.classList.remove('active');
-            document.body.style.overflow = '';
+
+        if (menuClose) {
+            menuClose.addEventListener('click', function() {
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
         }
-    });
-    
-    // Ferme le menu au clic sur le fond
-    if (menuOverlay) {
+
         menuOverlay.addEventListener('click', function(e) {
             if (e.target === menuOverlay || e.target.classList.contains('menu-overlay-bg')) {
                 menuOverlay.classList.remove('active');
-                menuToggle.classList.remove('active');
                 document.body.style.overflow = '';
             }
         });
+
+        const menuLinks = menuOverlay.querySelectorAll('.menu-link');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
     }
+
+    // ===================================
+    // 2. CARTE LEAFLET
+    // ===================================
+    // IMPORTANT: Ces valeurs seront remplacées automatiquement par le script Python
+    const VILLE_SLUG = 'tours';
+    const VILLE_NOM = 'Tours';
+    const GPS_LAT = 47.3941;
+    const GPS_LON = 0.6848;
     
+    const mapElement = document.getElementById(VILLE_SLUG + '-map');
     
-    // ===== CARTE LEAFLET =====
-    const mapElement = document.getElementById('tours-map');
-    
-    if (mapElement && !mapElement._leaflet_id) {
-        try {
-            const map = L.map('tours-map').setView([47.3941, 0.6848], 11);
+    if (mapElement) {
+        console.log('✅ Élément carte trouvé:', VILLE_SLUG + '-map');
+        
+        if (typeof L === 'undefined') {
+            console.error('❌ Leaflet n\'est pas chargé');
+            mapElement.innerHTML = '<p style="text-align: center; padding: 2rem; color: #666;">Erreur : Leaflet non chargé</p>';
+        } else {
+            console.log('✅ Leaflet est chargé');
             
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-                maxZoom: 19
-            }).addTo(map);
-            
-            const marker = L.marker([47.3941, 0.6848]).addTo(map);
-            marker.bindPopup('<strong>Tours</strong><br>Zone d\'intervention d\'Artiserv Débouchage<br><a href="tel:+33200000000">Appelez-nous</a>').openPopup();
-            
-            const circle = L.circle([47.3941, 0.6848], {
-                color: '#F88309',
-                fillColor: '#F88309',
-                fillOpacity: 0.1,
-                radius: 30000
-            }).addTo(map);
-        } catch (error) {
-            console.log('Erreur carte:', error);
+            try {
+                // Initialiser la carte
+                const map = L.map(VILLE_SLUG + '-map').setView([GPS_LAT, GPS_LON], 12);
+                console.log('✅ Carte initialisée pour', VILLE_NOM, 'à', GPS_LAT, GPS_LON);
+
+                // Ajouter les tuiles OpenStreetMap
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                    maxZoom: 19
+                }).addTo(map);
+
+                // Forcer le recalcul de la taille (fix CSS async)
+                setTimeout(function() {
+                    map.invalidateSize();
+                }, 250);
+
+                // Ajouter un marqueur avec les bonnes coordonnées
+                const marker = L.marker([GPS_LAT, GPS_LON]).addTo(map);
+                marker.bindPopup(
+                    '<strong>Artiserv Débouchage</strong><br>' +
+                    'Zone d\'intervention à ' + VILLE_NOM
+                ).openPopup();
+
+                // Cercle de zone d'intervention (rayon ~15km)
+                const circle = L.circle([GPS_LAT, GPS_LON], {
+                    color: '#F88309',
+                    fillColor: '#F88309',
+                    fillOpacity: 0.1,
+                    radius: 15000
+                }).addTo(map);
+                
+                console.log('🎉 Carte Leaflet chargée avec succès !');
+            } catch (error) {
+                console.error('❌ Erreur lors de l\'initialisation de la carte:', error);
+                mapElement.innerHTML = '<p style="text-align: center; padding: 2rem; color: #666;">La carte n\'a pas pu être chargée.</p>';
+            }
         }
+    } else {
+        console.warn('⚠️ Élément carte non trouvé:', VILLE_SLUG + '-map');
     }
+
+    // ===================================
+    // 3. TOP BAR DYNAMIQUE
+    // ===================================
+    const nextSlotElement = document.getElementById('next-slot');
     
+    if (nextSlotElement) {
+        function updateNextSlot() {
+            const now = new Date();
+            const minutes = now.getMinutes();
+            const hours = now.getHours();
+            
+            let nextMinutes = Math.ceil(minutes / 15) * 15;
+            let nextHours = hours;
+            
+            if (nextMinutes === 60) {
+                nextMinutes = 0;
+                nextHours = (nextHours + 1) % 24;
+            }
+            
+            const timeString = `${String(nextHours).padStart(2, '0')}h${String(nextMinutes).padStart(2, '0')}`;
+            nextSlotElement.textContent = timeString;
+        }
+        
+        updateNextSlot();
+        setInterval(updateNextSlot, 60000);
+    }
+
+    // ===================================
+    // 4. ACTIVITÉ TECHNICIEN
+    // ===================================
+    const technicianActivity = document.getElementById('technician-activity');
     
-    // ===== GESTION DES COOKIES =====
+    if (technicianActivity) {
+        const activities = [
+            'Technicien en route sur ' + VILLE_NOM + ' Nord',
+            'Intervention en cours dans le secteur',
+            'Technicien disponible - Intervention rapide',
+            'Débouchage terminé avec succès',
+            'En route vers le prochain client'
+        ];
+        
+        let currentIndex = 0;
+        
+        function updateActivity() {
+            currentIndex = (currentIndex + 1) % activities.length;
+            technicianActivity.textContent = activities[currentIndex];
+        }
+        
+        setInterval(updateActivity, 8000);
+    }
+
+    // ===================================
+    // 5. GESTION COOKIES
+    // ===================================
     const cookieConsent = document.getElementById('cookieConsent');
     const cookieAccept = document.getElementById('cookieAccept');
     const cookieReject = document.getElementById('cookieReject');
-    
-    function checkCookieConsent() {
-        const consent = localStorage.getItem('cookieConsent');
-        if (!consent) {
-            setTimeout(function() {
-                if (cookieConsent) {
-                    cookieConsent.classList.add('show');
-                }
-            }, 1000);
+
+    if (cookieConsent) {
+        const cookieChoice = localStorage.getItem('cookieConsent');
+        
+        if (!cookieChoice) {
+            setTimeout(() => {
+                cookieConsent.style.display = 'block';
+            }, 2000);
         }
-    }
-    
-    function acceptCookies() {
-        localStorage.setItem('cookieConsent', 'accepted');
-        localStorage.setItem('cookieConsentDate', new Date().toISOString());
-        hideCookieBanner();
-        console.log('Cookies acceptés');
-    }
-    
-    function rejectCookies() {
-        localStorage.setItem('cookieConsent', 'rejected');
-        localStorage.setItem('cookieConsentDate', new Date().toISOString());
-        hideCookieBanner();
-        console.log('Cookies refusés');
-    }
-    
-    function hideCookieBanner() {
-        if (cookieConsent) {
-            cookieConsent.classList.remove('show');
-            setTimeout(function() {
+
+        if (cookieAccept) {
+            cookieAccept.addEventListener('click', function() {
+                localStorage.setItem('cookieConsent', 'accepted');
                 cookieConsent.style.display = 'none';
-            }, 400);
+            });
+        }
+
+        if (cookieReject) {
+            cookieReject.addEventListener('click', function() {
+                localStorage.setItem('cookieConsent', 'rejected');
+                cookieConsent.style.display = 'none';
+            });
         }
     }
+
+    // ===================================
+    // 6. FORMULAIRE DE CONTACT
+    // ===================================
+    const contactForm = document.getElementById('contactForm');
     
-    if (cookieAccept) {
-        cookieAccept.addEventListener('click', acceptCookies);
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            const submitButton = contactForm.querySelector('button[type="submit"]');
+            
+            if (submitButton) {
+                const originalText = submitButton.textContent;
+                submitButton.textContent = 'Envoi en cours...';
+                submitButton.disabled = true;
+                
+                setTimeout(() => {
+                    submitButton.textContent = originalText;
+                    submitButton.disabled = false;
+                }, 3000);
+            }
+        });
     }
-    
-    if (cookieReject) {
-        cookieReject.addEventListener('click', rejectCookies);
-    }
-    
-    checkCookieConsent();
-    
-    window.resetCookieConsent = function() {
-        localStorage.removeItem('cookieConsent');
-        localStorage.removeItem('cookieConsentDate');
-        location.reload();
-    };
+
+    // ===================================
+    // 7. SMOOTH SCROLL
+    // ===================================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            
+            if (href === '#' || href === '#!') {
+                e.preventDefault();
+                return;
+            }
+            
+            const target = document.querySelector(href);
+            
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // ===================================
+    // 8. CONSOLE MESSAGE
+    // ===================================
+    console.log('🚀 Site Artiserv Débouchage ' + VILLE_NOM + ' chargé !');
+
 });

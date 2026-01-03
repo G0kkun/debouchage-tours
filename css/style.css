@@ -2856,3 +2856,43 @@ p { margin-bottom: 1rem; }
     height: 2px;
     background-color: var(--color-primary);
 }
+/* =======================================
+   CARTE LEAFLET - ZONE D'INTERVENTION
+   ======================================= */
+
+/* Conteneur de la carte */
+.zone-map {
+    flex: 1;
+    min-height: 400px;
+}
+
+/* Style pour toutes les cartes (sélecteur universel) */
+[id$="-map"] {
+    width: 100% !important;
+    height: 400px !important;
+    min-height: 400px !important;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: #f5f5f5;
+    position: relative;
+    z-index: 1;
+}
+
+/* Fix Leaflet container */
+.leaflet-container {
+    height: 100% !important;
+    width: 100% !important;
+    border-radius: 12px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .zone-map {
+        min-height: 300px;
+    }
+    
+    [id$="-map"] {
+        height: 300px !important;
+        min-height: 300px !important;
+    }
+}
