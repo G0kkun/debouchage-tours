@@ -112,6 +112,7 @@ p { margin-bottom: 1rem; }
 .highlight { 
     color: var(--color-primary); 
 }
+
 /* =====================================================
    BRAND NAME STYLING
    ===================================================== */
@@ -479,6 +480,7 @@ p { margin-bottom: 1rem; }
     display: flex;
     align-items: flex-end; 
     justify-content: center;
+    align-self: end;
 }
 
 .hero-image img {
@@ -1140,7 +1142,7 @@ p { margin-bottom: 1rem; }
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     font-size: 0.95rem;
     color: var(--color-gray-700);
 }
@@ -2702,7 +2704,7 @@ p { margin-bottom: 1rem; }
 }
 
 /* =====================================================
-   FAQ CONTACT
+   FAQ CONTACT (Page contact - SANS accordéons)
    ===================================================== */
 .contact-faq h2 {
     text-align: center;
@@ -2710,8 +2712,8 @@ p { margin-bottom: 1rem; }
 }
 
 .faq-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-wrap: wrap;
     gap: 2rem;
 }
 
@@ -2721,16 +2723,19 @@ p { margin-bottom: 1rem; }
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
     border-left: 4px solid var(--color-primary);
+    flex: 0 0 calc(50% - 1rem);
+    align-self: flex-start;
 }
 
-.faq-question {
+/* FAQ sans accordéons - Page contact */
+.contact-faq .faq-question {
     display: flex;
     align-items: flex-start;
     gap: 1rem;
     margin-bottom: 1rem;
 }
 
-.faq-question svg {
+.contact-faq .faq-question svg {
     width: 24px;
     height: 24px;
     stroke: var(--color-primary);
@@ -2738,17 +2743,101 @@ p { margin-bottom: 1rem; }
     margin-top: 0.25rem;
 }
 
-.faq-question h3 {
+.contact-faq .faq-question h3 {
     color: var(--color-secondary);
     font-size: 1.1rem;
     line-height: 1.4;
 }
 
-.faq-answer {
+.contact-faq .faq-answer {
     color: var(--color-gray-700);
     line-height: 1.6;
     font-size: 0.95rem;
     margin-left: 2.5rem;
+}
+
+/* =====================================================
+   FAQ ACCORDÉONS (Page débouchage - AVEC accordéons)
+   ===================================================== */
+
+/* Bouton question (accordéon) */
+.faq-item .faq-question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-align: left;
+    transition: all var(--transition);
+    outline: none;
+    margin-bottom: 0;
+}
+
+.faq-item .faq-question:hover h3 {
+    color: var(--color-primary);
+}
+
+.faq-item .faq-question .faq-icon {
+    flex-shrink: 0;
+    margin-top: 0;
+}
+
+.faq-item .faq-question h3 {
+    flex: 1;
+    margin: 0;
+    transition: color var(--transition);
+    color: var(--color-secondary);
+    font-size: 1.1rem;
+}
+
+/* Flèche d'accordéon */
+.faq-arrow {
+    width: 24px;
+    height: 24px;
+    stroke: var(--color-secondary);
+    flex-shrink: 0;
+    transition: transform var(--transition);
+}
+
+.faq-question[aria-expanded="true"] .faq-arrow {
+    transform: rotate(180deg);
+    stroke: var(--color-primary);
+}
+
+/* Conteneur de la réponse (accordéon) - UNIQUEMENT page débouchage */
+.faq-accordions .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-left: 0;
+}
+
+.faq-accordions .faq-answer.active {
+    max-height: 2000px;
+}
+
+/* Contenu de la réponse avec padding */
+.faq-answer-content {
+    padding-top: 1rem;
+}
+
+/* Espacement réduit entre les points */
+.faq-answer .tarif-features li {
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive FAQ */
+@media (max-width: 1024px) {
+    .faq-grid {
+        gap: 1.5rem;
+    }
+    
+    .faq-item {
+        flex: 0 0 100%;
+    }
 }
 
 /* =====================================================

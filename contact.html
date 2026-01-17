@@ -6,8 +6,12 @@
     <title>Contact - Débouchage Canalisation Tours | Artiserv Débouchage</title>
     <meta name="description" content="Contactez Artiserv Débouchage pour une intervention rapide à Tours. Devis gratuit, urgence 24h/24. Formulaire de contact ou appelez-nous directement.">
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="images/favicon.webp">
+    <link rel="apple-touch-icon" href="images/favicon.webp">
+    
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://debouchage-canalisation-tours.fr/" />
+    <link rel="canonical" href="https://debouchage-canalisation-tours.fr/contact.html" />
 
     <!-- Google Fonts (optimisé) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,7 +61,8 @@
             <!-- Menu desktop -->
             <nav class="nav-menu-desktop">
                 <a href="index.html">Accueil</a>
-                <a href="contact.html">Contact</a>
+                <a href="debouchage-canalisations.html">Débouchage</a>
+                <a href="contact.html" class="active">Contact</a>
             </nav>
             
             <a href="tel:+33200000000" class="phone-cta">
@@ -90,8 +95,13 @@
                     <span class="menu-link-text">Accueil</span>
                     <span class="menu-link-arrow">→</span>
                 </a>
-                <a href="contact.html" class="menu-link">
+                <a href="debouchage-canalisations.html" class="menu-link">
                     <span class="menu-link-number">02</span>
+                    <span class="menu-link-text">Débouchage</span>
+                    <span class="menu-link-arrow">→</span>
+                </a>
+                <a href="contact.html" class="menu-link">
+                    <span class="menu-link-number">03</span>
                     <span class="menu-link-text">Contact</span>
                     <span class="menu-link-arrow">→</span>
                 </a>
@@ -398,7 +408,8 @@
                         </svg>
                         <h3>Dans quelles villes intervenez-vous ?</h3>
                     </div>
-                    <p>Nous intervenons sur Tours et dans tout l' Indre-et-Loire (37) : Saint-Cyr-sur-Loire, Joué-lès-Tours, Saint-Pierre-des-Corps, La Riche, Saint-Avertin, et toutes les communes du département.</p>
+                    <p class="faq-answer">Nous intervenons sur Tours et dans tout l' Indre-et-Loire (37) : Saint-Cyr-sur-Loire, Joué-lès-Tours, Saint-Pierre-des-Corps, La Riche, Saint-Avertin, et toutes les communes du département.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -420,7 +431,7 @@
                 <div class="footer-column">
                     <h4>Nos services</h4>
                     <ul>
-                        <li><span style="color: var(--color-gray-500); cursor: default;">Débouchage (bientôt)</span></li>
+                        <li><a href="debouchage-canalisations.html">Débouchage</a></li>
                         <li><span style="color: var(--color-gray-500); cursor: default;">Curage (bientôt)</span></li>
                         <li><span style="color: var(--color-gray-500); cursor: default;">Inspection vidéo (bientôt)</span></li>
                         <li><span style="color: var(--color-gray-500); cursor: default;">Pompage (bientôt)</span></li>
@@ -451,7 +462,8 @@
                             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                             <polyline points="22,6 12,13 2,6"></polyline>
                         </svg>
-                        <a href="mailto:artiserv.debouchage@gmail.com">artiserv.debouchage@gmail.com</a>                    </div>
+                        <a href="mailto:artiserv.debouchage@gmail.com">artiserv.debouchage@gmail.com</a>
+                    </div>
                     <div class="footer-contact-item">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
@@ -496,4 +508,78 @@
                 <div>
                     <p><strong>Respect de votre vie privée</strong></p>
                     <p>Nous utilisons des cookies pour améliorer votre expérience de navigation et analyser notre trafic. 
-                    <a href="politiq
+                    <a href="politique-confidentialite.html">En savoir plus</a></p>
+                </div>
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-btn cookie-btn-reject" id="cookieReject">Refuser</button>
+                <button class="cookie-btn cookie-btn-accept" id="cookieAccept">Accepter</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Schema FAQ pour Google - Page Contact -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Quel est votre délai d'intervention ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nous intervenons sous 30 minutes pour les urgences à Tours et ses alentours. Pour les interventions planifiées, nous nous adaptons à vos disponibilités."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Le devis est-il vraiment gratuit ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui, tous nos devis sont 100% gratuits et sans engagement. Nous nous déplaçons gratuitement pour évaluer votre situation et vous proposer la meilleure solution."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Intervenez-vous vraiment 24h/24 ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolument ! Nos équipes sont disponibles jour et nuit, week-ends et jours fériés compris. Une canalisation bouchée ne choisit pas son moment !"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quels moyens de paiement acceptez-vous ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nous acceptons les paiements par carte bancaire, chèque, espèces et virement. Un devis détaillé vous sera fourni avant toute intervention."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Vos interventions sont-elles garanties ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui, toutes nos interventions sont garanties 1 an. Si le problème réapparaît dans l'année, nous revenons gratuitement."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Dans quelles villes intervenez-vous ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nous intervenons sur Tours et dans tout l' Indre-et-Loire (37) : Saint-Cyr-sur-Loire, Joué-lès-Tours, Saint-Pierre-des-Corps, La Riche, Saint-Avertin, et toutes les communes du département."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Main JS -->
+    <script src="js/main.js"></script>
+</body>
+</html>
