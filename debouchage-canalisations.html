@@ -71,7 +71,18 @@
                 <a href="index.html">Accueil</a>
                 <a href="debouchage-canalisations.html" class="active">Débouchage</a>
                 <a href="curage-canalisations.html">Curage</a>
-                <a href="inspection-video-canalisations.html">Inspection Vidéo</a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-dropdown-toggle">
+                        Autres services
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; margin-left: 4px;">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </a>
+                    <div class="nav-dropdown-menu">
+                        <a href="inspection-video-canalisations.html">Inspection vidéo</a>
+                        <a href="pompage-canalisations.html">Pompage</a>
+                    </div>
+                </div>
                 <a href="contact.html">Contact</a>
             </nav>
             
@@ -115,11 +126,21 @@
                     <span class="menu-link-text">Curage</span>
                     <span class="menu-link-arrow">→</span>
                 </a>
-                <a href="inspection-video-canalisations.html" class="menu-link">
+                <div class="menu-link menu-link-dropdown">
                     <span class="menu-link-number">04</span>
-                    <span class="menu-link-text">Inspection Vidéo</span>
-                    <span class="menu-link-arrow">→</span>
-                </a>
+                    <span class="menu-link-text">Autres services</span>
+                    <span class="menu-link-arrow">▼</span>
+                </div>
+                <div class="menu-submenu">
+                    <a href="inspection-video-canalisations.html" class="menu-sublink">
+                        <span class="menu-link-number">04-1</span>
+                        <span class="menu-sublink-text">Inspection vidéo</span>
+                    </a>
+                    <a href="pompage-canalisations.html" class="menu-sublink">
+                        <span class="menu-link-number">04-2</span>
+                        <span class="menu-sublink-text">Pompage</span>
+                    </a>
+                </div>
                 <a href="contact.html" class="menu-link">
                     <span class="menu-link-number">05</span>
                     <span class="menu-link-text">Contact</span>
@@ -1025,11 +1046,12 @@
                 <div class="footer-column">
                     <h4>Nos services</h4>
                     <ul>
-                        <li><a href="debouchage-canalisations">Débouchage</a></li>
-                        <li><a href="curage-canalisations">Curage</a></li>
-                        <li><a href="inspection-video-canalisations">Inspection vidéo</a></li>
-                        <li><span style="color: var(--color-gray-500); cursor: default;">Pompage (bientôt)</span></li>
+                        <li><a href="debouchage-canalisations.html">Débouchage</a></li>
+                        <li><a href="curage-canalisations.html">Curage</a></li>
+                        <li><a href="inspection-video-canalisations.html">Inspection vidéo</a></li>
+                        <li><a href="pompage-canalisations.html">Pompage</a></li>
                         <li><span style="color: var(--color-gray-500); cursor: default;">Vidange fosse (bientôt)</span></li>
+                        <li><span style="color: var(--color-gray-500); cursor: default;">Assainissement (bientôt)</span></li>
                     </ul>
                 </div>
                 
