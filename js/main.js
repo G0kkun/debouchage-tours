@@ -172,16 +172,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (nextSlotElement) {
         function updateNextSlot() {
             const now = new Date();
-            const minutes = now.getMinutes();
-            const hours = now.getHours();
+            // Ajouter 25 minutes à l'heure actuelle
+            const nextSlot = new Date(now.getTime() + 25 * 60 * 1000);
             
-            let nextMinutes = Math.ceil(minutes / 15) * 15;
-            let nextHours = hours;
-            
-            if (nextMinutes === 60) {
-                nextMinutes = 0;
-                nextHours = (nextHours + 1) % 24;
-            }
+            const nextHours = nextSlot.getHours();
+            const nextMinutes = nextSlot.getMinutes();
             
             const timeString = `${String(nextHours).padStart(2, '0')}h${String(nextMinutes).padStart(2, '0')}`;
             nextSlotElement.textContent = timeString;
