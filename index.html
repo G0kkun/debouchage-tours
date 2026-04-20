@@ -27,6 +27,46 @@
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Plumber",
+      "name": "Artiserv Debouchage Tours",
+      "description": "Debouchage de canalisations a Tours. Intervention urgente 24h/24 et 7j/7. Devis gratuit.",
+      "url": "https://debouchage-canalisation-tours.fr/",
+      "telephone": "09 80 80 55 05",
+      "email": "artiserv.debouchage@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Tours",
+        "postalCode": "37000",
+        "addressRegion": "Indre-et-Loire",
+        "addressCountry": "FR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 47.3941,
+        "longitude": 0.6848
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+          "opens": "00:00",
+          "closes": "23:59"
+        }
+      ],
+      "priceRange": "EUR 149+",
+      "currenciesAccepted": "EUR",
+      "paymentAccepted": "Cash, Credit Card, Check, Bank Transfer",
+      "areaServed": {
+        "@type": "City",
+        "name": "Tours"
+      }
+    }
+    </script>
+
 </head>
 <body>
     <!-- Top Bar -->
