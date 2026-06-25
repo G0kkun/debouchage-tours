@@ -1,0 +1,3 @@
+# Cloudflare Pages — force les URLs sans extension .html (SEO : une seule URL canonique par page)
+/index.html            /                 301
+/*.html                /:splat           301
